@@ -14,9 +14,9 @@ The repository contains 4 folders:
   - [`Prompting and Prompt Engineering`](./Week%201/Prompting%20and%20Prompt%20Engineering.pdf) - Basics of prompting, prompt engineering and inference configuration parameters (temperature, etc).
   - [`Pre-training Large Language Models`](./Week%201/Pre-training%20Large%20Language%20Models.pdf) - Basics of how LLMs are pre-trained.
   - [`Efficient Multi-GPU Compute Strategies`](./Week%201/Efficient%20Multi-GPU%20Compute%20Strategies.pdf) - Approaches available for training LLMs in a distributed manner.
-- `Week 2`:
+- [`Week 2`](./Week%202):
   - [`Instruction Fine-Tuning`](./Week%202/Instruction%20Fine-Tuning.pdf) - Basics of fine-tuning LLMs.
   - [`Model Evaluation - Metrics and Benchmarks`](./Week%202/Model%20Evaluation%20-%20Metrics%20and%20Benchmarks.pdf) - Details on evaluation metrics and benchmarks for LLMs.
   - [`Parameter Efficient Fine Tuning (PEFT)`](./Week%202/Parameter%20Efficient%20Fine-Tuning%20(PEFT).pdf) - Basics of PEFT, covering LoRA and Soft Prompts.
-- `Week 3`:
+- [`Week 3`](./Week%203):
   - [`Reinforcement Learning From Human Feedback (RLHF)`](./Week%203/Reinforcement%20Learning%20From%20Human%20Feedback%20(RLHF).pdf) - Basics of RLHF.
