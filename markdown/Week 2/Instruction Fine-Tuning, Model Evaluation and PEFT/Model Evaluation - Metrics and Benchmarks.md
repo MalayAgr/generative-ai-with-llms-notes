@@ -175,6 +175,7 @@ The recall score is defined as:
 $$
 \text{ROUGE-L}_{recall} = \frac{\text{LCS}(\text{Gen}, \text{Ref})}{\text{unigrams in reference}}
 $$
+
 The precision score is defined as:
 
 $$
@@ -211,6 +212,7 @@ The score is computed using the average precision over multiple n-gram sizes. It
 $$
 \text{BLEU} = \text{avg}(\text{precision across range of n-gram sizes})
 $$
+
 Consider the human reference:
 
 > I am very happy to say that I am drinking a warm cup of tea.

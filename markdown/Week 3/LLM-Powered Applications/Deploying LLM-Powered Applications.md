@@ -74,9 +74,8 @@ When training a student model to mimic the behavior of the teacher model just in
 - Start with our fine-tuned LLM as the teacher model and create a smaller LLM for the student model. The weights of the teacher model are frozen.
 - Use the teacher model to generate completions for the training data. At the same time, generate completions for the training data using the student model
 - "Distill" the knowledge from the teacher model to the student model by minimizing a loss function which is a combination of a loss called the _student loss_ and a loss called the _distillation loss_, given by:
-  $$
-  \mathcal{L}(x;W) = \alpha * \mathcal{H}(y, \sigma(z_s;T=1)) + \beta * \mathcal{H}(\sigma(z_t;T=\tau), \sigma(z_s, T=\tau))
-  $$
+
+  $$\mathcal{L}(x;W) = \alpha * \mathcal{H}(y, \sigma(z_s;T=1)) + \beta * \mathcal{H}(\sigma(z_t;T=\tau), \sigma(z_s, T=\tau))$$
 
 Here, $\mathcal{H}(y, \sigma(z_s;T=1))$ is the student loss and $\mathcal{H}(\sigma(z_t;T=\tau), \sigma(z_s, T=\tau))$ is the distillation loss.
 
@@ -88,9 +87,8 @@ In the above equation:
 - $\mathcal{H}$ is the cross-entropy loss function.
 - $z_t$ and $z_t$ are the logits from the teacher and student models respectively.
 - $\sigma$ is the softmax function parameterized by the temperature $T$, calculated as:
-  $$
-  \sigma(z_i;T) = \frac{\exp(\frac{z_i}{T})}{\sum_j \exp(\frac{z_j}{T})}
-  $$
+
+  $$\sigma(z_i;T) = \frac{\exp(\frac{z_i}{T})}{\sum_j \exp(\frac{z_j}{T})}$$
 
   > Note: Here, $z_i$ refers to a particular index in the logit vector $z$.
 
