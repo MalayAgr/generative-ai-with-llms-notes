@@ -287,7 +287,7 @@ We will continue the process until the model is aligned based on some evaluation
 ### Proximal Policy Optimization (PPO)
 
 > **Note**: The PPO algorithm discussed here is also called PPO-Clip.
-
+>
 > **Note**: Q-Learning is another reinforcement learning algorithm that can be used with RLHF but PPO is the current SOTA technique.
 
 There are many options for what the reinforcement learning algorithm can be. One popular algorithm is called **Proximal Policy Optimization** (PPO).

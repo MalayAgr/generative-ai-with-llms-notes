@@ -128,7 +128,7 @@ Overall:
  $$A(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_K}})V \in R^{L \times d_V}$$
 
 > **Note**: $W_Q$ and $W_K$ need to have the same dimension since we take a dot product between $Q$ and $K$.
-
+>
 > **Note**: The output dimension depends on the dimension of $W_V$.
 
 $\sqrt{d_K}$ is used to prevent the dot product from becoming too large. This is called the **scaled dot-product attention**.
