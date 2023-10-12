@@ -44,12 +44,10 @@ For example, consider an RNN trained for next-token generation. By default, it c
 
 To predict the next token, models need to see more than just the previous word. Models need to have an understanding of the whole input prompt. Language is complex and full of ambiguity. For example, consider the sentence:
 
-> [!PROMPT]
 > I took my money to the bank.
 
 The word _bank_ is a homonym which has multiple meanings. It is only with the context of _money_ that we understand that this _bank_ refers to a financial institution and not the bank of a river. Consider another example:
 
-> [!PROMPT]
 > The teacher taught the student with the book.
 
 Does the book used belong to only the teacher, only the student or both of them have a copy of the book with them?
