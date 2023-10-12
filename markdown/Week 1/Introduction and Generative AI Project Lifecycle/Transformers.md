@@ -1,36 +1,36 @@
 # Transformers
 
 - [Transformers](#transformers)
-  - [Before Transformers](#before-transformers)
-  - [Why Transformers?](#why-transformers)
-  - [Some Features of Transformers](#some-features-of-transformers)
-  - [Key Concepts](#key-concepts)
-    - [Self-Attention](#self-attention)
-      - [Intuition](#intuition)
-      - [Computation](#computation)
-    - [Multi-Headed Attention](#multi-headed-attention)
-      - [Intuition](#intuition-1)
-      - [Computation](#computation-1)
-      - [Code (PyTorch)](#code-pytorch)
-    - [Positional Encoding](#positional-encoding)
-      - [Why?](#why)
-      - [Computation](#computation-2)
-  - [Full Encoder-Decoder Architecture](#full-encoder-decoder-architecture)
-    - [Encoder](#encoder)
-      - [Residual Connections](#residual-connections)
-      - [Layer Normalization](#layer-normalization)
-      - [Feed-Forward Neural Network (FFNN)](#feed-forward-neural-network-ffnn)
-    - [Decoder](#decoder)
-      - [Masked Multi-Headed Attention](#masked-multi-headed-attention)
-      - [Cross-Attention](#cross-attention)
-      - [Linear + Softmax - Prediction](#linear--softmax---prediction)
-        - [Greedy Sampling](#greedy-sampling)
-        - [Random Sampling](#random-sampling)
-  - [Types of Configurations of Transformers](#types-of-configurations-of-transformers)
-    - [Encoder-only Models](#encoder-only-models)
-    - [Encoder-Decoder Models](#encoder-decoder-models)
-    - [Decoder-only Models](#decoder-only-models)
-  - [Useful Resources](#useful-resources)
+    - [Before Transformers](#before-transformers)
+    - [Why Transformers?](#why-transformers)
+    - [Some Features of Transformers](#some-features-of-transformers)
+    - [Key Concepts](#key-concepts)
+        - [Self-Attention](#self-attention)
+            - [Intuition](#intuition)
+            - [Computation](#computation)
+        - [Multi-Headed Attention](#multi-headed-attention)
+            - [Intuition](#intuition-1)
+            - [Computation](#computation-1)
+            - [Code (PyTorch)](#code-pytorch)
+        - [Positional Encoding](#positional-encoding)
+            - [Why?](#why)
+            - [Computation](#computation-2)
+    - [Full Encoder-Decoder Architecture](#full-encoder-decoder-architecture)
+        - [Encoder](#encoder)
+            - [Residual Connections](#residual-connections)
+            - [Layer Normalization](#layer-normalization)
+            - [Feed-Forward Neural Network (FFNN)](#feed-forward-neural-network-ffnn)
+        - [Decoder](#decoder)
+            - [Masked Multi-Headed Attention](#masked-multi-headed-attention)
+            - [Cross-Attention](#cross-attention)
+            - [Linear + Softmax - Prediction](#linear--softmax---prediction)
+                - [Greedy Sampling](#greedy-sampling)
+                - [Random Sampling](#random-sampling)
+    - [Types of Configurations of Transformers](#types-of-configurations-of-transformers)
+        - [Encoder-only Models](#encoder-only-models)
+        - [Encoder-Decoder Models](#encoder-decoder-models)
+        - [Decoder-only Models](#decoder-only-models)
+    - [Useful Resources](#useful-resources)
 
 ## Before Transformers
 
@@ -127,9 +127,9 @@ Overall:
 - We compute the attention using the following vectorized equation:
  $$A(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_K}})V \in R^{L \times d_V}$$
 
-> **Note**: $W_Q$ and $W_K$ need to have the same dimension since we take a dot product between $Q$ and $K$.
+> **Note**: $`W_Q`$ and $`W_K`$ need to have the same dimension since we take a dot product between $`Q`$ and $`K`$.
 
-> **Note**: The output dimension depends on the dimension of $W_V$.
+> **Note**: The output dimension depends on the dimension of $`W_V`$.
 
 $\sqrt{d_K}$ is used to prevent the dot product from becoming too large. This is called the **scaled dot-product attention**.
 
@@ -313,7 +313,7 @@ The parts (expect multi-headed attention) in the encoder are detailed below.
 
 The output matrix of the multi-headed attention is added to the original embedded input using a residual connection.
 
-> **Note**: This requires the output dimension of the multi-headed attention layer to match the original dimension of the input. In other words, $d_O = d$ so that the output is $L \times d$.
+> **Note**: This requires the output dimension of the multi-headed attention layer to match the original dimension of the input. In other words, $`d_O = d`$ so that the output is $`L \times d`$.
 
 This residual connection is important since:
 
