@@ -1,36 +1,36 @@
 # Transformers
 
 - [Transformers](#transformers)
-    - [Before Transformers](#before-transformers)
-    - [Why Transformers?](#why-transformers)
-    - [Some Features of Transformers](#some-features-of-transformers)
-    - [Key Concepts](#key-concepts)
-        - [Self-Attention](#self-attention)
-            - [Intuition](#intuition)
-            - [Computation](#computation)
-        - [Multi-Headed Attention](#multi-headed-attention)
-            - [Intuition](#intuition-1)
-            - [Computation](#computation-1)
-            - [Code (PyTorch)](#code-pytorch)
-        - [Positional Encoding](#positional-encoding)
-            - [Why?](#why)
-            - [Computation](#computation-2)
-    - [Full Encoder-Decoder Architecture](#full-encoder-decoder-architecture)
-        - [Encoder](#encoder)
-            - [Residual Connections](#residual-connections)
-            - [Layer Normalization](#layer-normalization)
-            - [Feed-Forward Neural Network (FFNN)](#feed-forward-neural-network-ffnn)
-        - [Decoder](#decoder)
-            - [Masked Multi-Headed Attention](#masked-multi-headed-attention)
-            - [Cross-Attention](#cross-attention)
-            - [Linear + Softmax - Prediction](#linear--softmax---prediction)
-                - [Greedy Sampling](#greedy-sampling)
-                - [Random Sampling](#random-sampling)
-    - [Types of Configurations of Transformers](#types-of-configurations-of-transformers)
-        - [Encoder-only Models](#encoder-only-models)
-        - [Encoder-Decoder Models](#encoder-decoder-models)
-        - [Decoder-only Models](#decoder-only-models)
-    - [Useful Resources](#useful-resources)
+  - [Before Transformers](#before-transformers)
+  - [Why Transformers?](#why-transformers)
+  - [Some Features of Transformers](#some-features-of-transformers)
+  - [Key Concepts](#key-concepts)
+    - [Self-Attention](#self-attention)
+      - [Intuition](#intuition)
+      - [Computation](#computation)
+    - [Multi-Headed Attention](#multi-headed-attention)
+      - [Intuition](#intuition-1)
+      - [Computation](#computation-1)
+      - [Code (PyTorch)](#code-pytorch)
+    - [Positional Encoding](#positional-encoding)
+      - [Why?](#why)
+      - [Computation](#computation-2)
+  - [Full Encoder-Decoder Architecture](#full-encoder-decoder-architecture)
+    - [Encoder](#encoder)
+      - [Residual Connections](#residual-connections)
+      - [Layer Normalization](#layer-normalization)
+      - [Feed-Forward Neural Network (FFNN)](#feed-forward-neural-network-ffnn)
+    - [Decoder](#decoder)
+      - [Masked Multi-Headed Attention](#masked-multi-headed-attention)
+      - [Cross-Attention](#cross-attention)
+      - [Linear + Softmax - Prediction](#linear--softmax---prediction)
+        - [Greedy Sampling](#greedy-sampling)
+        - [Random Sampling](#random-sampling)
+  - [Types of Configurations of Transformers](#types-of-configurations-of-transformers)
+    - [Encoder-only Models](#encoder-only-models)
+    - [Encoder-Decoder Models](#encoder-decoder-models)
+    - [Decoder-only Models](#decoder-only-models)
+  - [Useful Resources](#useful-resources)
 
 ## Before Transformers
 
@@ -158,6 +158,7 @@ We then multiply $X \in R^{L \times d}$ with $W$ as follows:
 $$
 \text{QKV} = (WX^T)^T = XW^T \in R^{L \times 3.h.d_h}
 $$
+
 We then reshape this to obtain an $L \times h \times 3.d_h$ tensor. Finally, we can take chunks of three from the last dimension to obtain $3$ $L \times h \times d_h$ matrices, each representing the $Q$, $K$ and $V$ matrices.
 
 These three matrices are passed to the self-attention block to obtain an $L \times h \times d_h$ output, which is concatenated along the last dimension to obtain the $L \times h.d_h$ output $A$. Finally, $A$ is multiplied with an $h.d_h \times h.d_h$ ($d_O = h.d_h$) matrix $W_O$ to obtain the final $L \times h.d_h$ output as follows:
@@ -280,6 +281,7 @@ $$
  \cos(\frac{t}{10000^{2k/d}}), & i = 2k + 1 \\
 \end{cases}
 $$
+
 where $t$ ($1 \leq t \leq L$) is the numerical position of the word being encoded and $i$ ($0 \leq i < d$) is an index into the embedding for the word.
 
 Take the sentence:
