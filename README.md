@@ -20,3 +20,4 @@ The repository contains 4 folders:
   - [`Parameter Efficient Fine Tuning (PEFT)`](./Week%202/Parameter%20Efficient%20Fine-Tuning%20(PEFT).pdf) - Basics of PEFT, covering LoRA and Soft Prompts.
 - [`Week 3`](./Week%203):
   - [`Reinforcement Learning From Human Feedback (RLHF)`](./Week%203/Reinforcement%20Learning%20From%20Human%20Feedback%20(RLHF).pdf) - Basics of RLHF.
+- [`markdown`](./markdown/) - Contains the same files as above except in Markdown format for those who prefer to read directly on GitHub.
