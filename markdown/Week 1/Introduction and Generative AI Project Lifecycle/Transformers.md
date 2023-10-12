@@ -115,7 +115,8 @@ The steps are as follows:
 - Each word's $v^{\langle t \rangle}$ is multiplied with the softmax output.
 - The result is summed _element-wise_ and gives the final $A^{\langle 3 \rangle}$ value.
 
-> **Note**: This shows that a word does not have a fixed representation and can actually adapt to how it is used in the sentence.
+> [!NOTE]
+> This shows that a word does not have a fixed representation and can actually adapt to how it is used in the sentence.
 
 Overall:
 
@@ -315,7 +316,8 @@ The parts (expect multi-headed attention) in the encoder are detailed below.
 
 The output matrix of the multi-headed attention is added to the original embedded input using a residual connection.
 
-> **Note**: This requires the output dimension of the multi-headed attention layer to match the original dimension of the input. In other words, $d_O = d$ so that the output is $L \times d$.
+> [!NOTE]
+> This requires the output dimension of the multi-headed attention layer to match the original dimension of the input. In other words, $d_O = d$ so that the output is $L \times d$.
 
 This residual connection is important since:
 
@@ -365,7 +367,8 @@ After computing $\frac{QK^T}{\sqrt{d_K}}$ and applying softmax, the matrix might
 
 For _suis_, $i = 2$. Thus, the elements at indices $(2, 3)$ and $(2, 4)$ are $0$ since _suis_ should attend only to _Je_ and _suis_ itself. On the other hand, the word _étudiant_ should attend to all the words since its the last word. Thus, no element in that row is $0$.
 
-> **Note**: The output is shifted to the right **during inference**, where we do not have the entire output sequence and are actually predicting one word at a time. We start the decoder with the single token `<SOS>` as the input and then, as the decoder predicts the next word, we add this new word to the input. This is what's referred to as "shifted right" in the diagram.
+> [!NOTE]
+> The output is shifted to the right **during inference**, where we do not have the entire output sequence and are actually predicting one word at a time. We start the decoder with the single token `<SOS>` as the input and then, as the decoder predicts the next word, we add this new word to the input. This is what's referred to as "shifted right" in the diagram.
 
 #### Cross-Attention
 
@@ -383,7 +386,8 @@ Cross-attention can work with sequences of different lengths. When computing $Q$
 
 ![cross-attention-dim-summary](../../assets/cross-attention-dim-summary.png)
 
-> **Note**: This technique of cross-attention is also used in diffusion models. See [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/pdf/2112.10752.pdf).
+> [!NOTE]
+> This technique of cross-attention is also used in diffusion models. See [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/pdf/2112.10752.pdf).
 
 #### Linear + Softmax - Prediction
 

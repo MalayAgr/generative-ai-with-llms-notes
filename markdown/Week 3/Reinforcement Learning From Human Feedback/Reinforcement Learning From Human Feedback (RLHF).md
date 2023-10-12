@@ -101,7 +101,8 @@ The learning process is iterative and involves trial and error:
 - Initially, the agent takes a random action which leads to a new state.
 - From this state, the agent proceeds to explore subsequent states through further actions.
 
-  > **Note**: The series of actions and corresponding states form a playout, often called a rollout.
+  > [!NOTE]
+  The series of actions and corresponding states form a playout, often called a rollout.
 
 - As the agent accumulates experiences, it gradually uncovers actions that yield the highest long-term rewards, ultimately leading to success in the game.
 
@@ -155,7 +156,8 @@ The steps involved in training a reward model are detailed below.
 
 We select an LLM which will help us prepare a dataset for human feedback.
 
-> **Note**: This is the LLM we are planning to align.
+> [!NOTE]
+> his is the LLM we are planning to align.
 
 The LLM should have some capability to carry out the task we are fine-tuning for. In general, it will be easier to start with an instruct model that has already been fine-tuned across multiple tasks and has some general capabilities.
 
@@ -237,7 +239,8 @@ We will then reorder the prompts so that the most preferred option comes first. 
 | There is nothing you can do about hot houses | It is not too hot | [1, 0] |
 | You can cool your house with air conditioning | It is not too hot | [1, 0] |
 
-> **Note**: Many LLMs use a thumbs-up, thumbs-down feedback system to obtain the feedback dataset since it is easier to obtain than a ranking feedback system. But, the ranking feedback system gives us more prompt-completion data to train the reward model.
+> [!NOTE]
+> Many LLMs use a thumbs-up, thumbs-down feedback system to obtain the feedback dataset since it is easier to obtain than a ranking feedback system. But, the ranking feedback system gives us more prompt-completion data to train the reward model.
 
 #### Training the Reward Model
 
@@ -251,7 +254,8 @@ $$
 \text{loss} = \log(\sigma(r_j - r_k))
 $$
 
-> **Note**: Notice how the loss function does not have any notion of labels in it despite this being a supervised learning problem. This is exactly why the ordering of the completions in the pairwise data is important. The loss function itself assumes that $r_j$ is the reward for the preferred response.
+> [!NOTE]
+> Notice how the loss function does not have any notion of labels in it despite this being a supervised learning problem. This is exactly why the ordering of the completions in the pairwise data is important. The loss function itself assumes that $r_j$ is the reward for the preferred response.
 
 #### Obtaining the Reward Value
 
@@ -265,7 +269,8 @@ The example below shows a "good reward" being provided for a non-toxic completio
 
 ![rlhf-reward-value-good](../../assets/rlhf-reward-value-good.png)
 
-> **Note**: Probabilities is the output of the reward model after applying a softmax activation.
+> [!NOTE]
+> Probabilities is the output of the reward model after applying a softmax activation.
 
 A "bad reward" for a toxic completion might be as shown below.
 
@@ -286,9 +291,11 @@ We will continue the process until the model is aligned based on some evaluation
 
 ### Proximal Policy Optimization (PPO)
 
-> **Note**: The PPO algorithm discussed here is also called PPO-Clip.
->
-> **Note**: Q-Learning is another reinforcement learning algorithm that can be used with RLHF but PPO is the current SOTA technique.
+> [!NOTE]
+> The PPO algorithm discussed here is also called PPO-Clip.
+
+> [!NOTE]
+> Q-Learning is another reinforcement learning algorithm that can be used with RLHF but PPO is the current SOTA technique.
 
 There are many options for what the reinforcement learning algorithm can be. One popular algorithm is called **Proximal Policy Optimization** (PPO).
 
@@ -456,7 +463,8 @@ During training, a prompt like *This product is* is passed to each model and bot
 
 We can then compare the two completions and calculate a value called the **KL divergence** (Kullback-Leibler divergence). KL divergence is a statistical measure of how different two probability distributions are. Thus, by comparing the completions, we can calculate how much the updated model has diverged from the reference.
 
-> **Note**: The exact details of how KL divergence is calculated are not discussed in the course. Some details are available here: [KL Divergence for Machine Learning](https://dibyaghosh.com/blog/probability/kldivergence.html).
+> [!NOTE]
+> The exact details of how KL divergence is calculated are not discussed in the course. Some details are available here: [KL Divergence for Machine Learning](https://dibyaghosh.com/blog/probability/kldivergence.html).
 
 KL divergence is calculated for each generated token across the whole vocabulary of the LLM. This can easily be tens or hundreds of thousands of tokens. However, using the softmax, we have reduce the number of probabilities to much less than the full vocabulary size (since a lot of the probabilities will be close to zero). It is still a compute expensive process and the use of GPUs is recommended.
 

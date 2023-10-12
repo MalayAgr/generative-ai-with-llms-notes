@@ -61,7 +61,8 @@ However, the challenge is to reduce the size of the LLM while still maintaining 
 
 The techniques available have a trade-off between accuracy and performance.
 
-> **Note**: Not all techniques available for reducing model size in general work well with generative models.
+> [!NOTE]
+> Not all techniques available for reducing model size in general work well with generative models.
 
 #### Distillation
 
@@ -90,7 +91,8 @@ In the above equation:
 
   $$\sigma(z_i;T) = \frac{\exp(\frac{z_i}{T})}{\sum_j \exp(\frac{z_j}{T})}$$
 
-  > Note: Here, $z_i$ refers to a particular index in the logit vector $z$.
+  > [!NOTE]
+  > Here, $z_i$ refers to a particular index in the logit vector $z$.
 
 - $\tau$ is the temperature value we are using for training the student model and is a hyperparameter.
 - $\alpha$ and $\beta$ are also hyperparameters.

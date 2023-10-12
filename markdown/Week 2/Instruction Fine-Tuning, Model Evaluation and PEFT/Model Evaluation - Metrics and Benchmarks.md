@@ -186,7 +186,8 @@ The F1-score is defined in terms of precision and recall, as usual.
 
 For the example, the recall score is $\text{ROUGE-L}_{recall} = \frac{2}{4} = 0.50$, the precision score is $\text{ROUGE-L}_{precision} = \frac{2}{5} = 0.40$ and the F1-score is $\text{ROUGE-L}_{f1} = 2\frac{0.50 \times 0.40}{0.50 + 0.40} = 0.44$.
 
-> **Note**: We can use the scores to compare the capabilities of models only if the scores were determined for the same task. ROUGE scores for different tasks are not comparable.
+> [!NOTE]
+> We can use the scores to compare the capabilities of models only if the scores were determined for the same task. ROUGE scores for different tasks are not comparable.
 
 #### ROUGE Hacking
 
