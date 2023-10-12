@@ -198,6 +198,7 @@ To combat this, we can use **ROUGE clipping**, which limits the number of unigra
 $$
 \text{Modified precision} = \frac{\text{clip}(\text{unigram matches})}{\text{unigrams in output}}
 $$
+
 For the example, the score is going to be $\frac{1}{4} = 0.25$ since there is only one occurrence of _cold_ in the reference and the $\text{clip}()$ function will limit the number of matches of _cold_ from $4$ to $1$. This results in a much smaller score.
 
 There are still issues if the words are present in the generated output but in a different order. Consider the output _outside cold it is_. This will have a perfect score, even with clipping.
