@@ -1,8 +1,30 @@
----
-title: Pre-training Large Language Models
-toc: yes
-author: Malay Agarwal
----
+# Pre-Training Large Language Models
+
+- [Pre-Training Large Language Models](#pre-training-large-language-models)
+  - [Choosing a Model](#choosing-a-model)
+    - [Model Hubs](#model-hubs)
+  - [Training Large Language Models](#training-large-language-models)
+    - [Initial Training Process (Pre-training)](#initial-training-process-pre-training)
+    - [Training Objectives for Transformer Variants](#training-objectives-for-transformer-variants)
+      - [Encoder-only Models (Autoencoding Models)](#encoder-only-models-autoencoding-models)
+      - [Decoder-only Models (Autoregressive Models)](#decoder-only-models-autoregressive-models)
+      - [Encoder-Decoder Models (Sequence-to-Sequence Models)](#encoder-decoder-models-sequence-to-sequence-models)
+  - [Computational Challenges in Training LLMs](#computational-challenges-in-training-llms)
+    - [Quantization](#quantization)
+      - [FP16 and BF16](#fp16-and-bf16)
+      - [INT8](#int8)
+  - [Scaling Choices](#scaling-choices)
+  - [Compute Budget](#compute-budget)
+    - [Petaflops/s-day](#petaflopss-day)
+    - [Compute Budget, Dataset Size, Model Size vs Model Performance](#compute-budget-dataset-size-model-size-vs-model-performance)
+    - [Compute-Optimal Models](#compute-optimal-models)
+  - [Domain Adaptation](#domain-adaptation)
+    - [Introduction](#introduction)
+    - [Examples](#examples)
+      - [Legal Domain](#legal-domain)
+      - [Medical Domain](#medical-domain)
+    - [Case Study - BloombergGPT - Domain Adaptation for Finance](#case-study---bloomberggpt---domain-adaptation-for-finance)
+
 ## Choosing a Model
 
 After figuring out the scope of our application, the next step is to select the model we will work with.

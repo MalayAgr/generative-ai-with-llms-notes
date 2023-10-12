@@ -1,8 +1,18 @@
----
-title: Prompting and Prompt Engineering
-toc: yes
-author: Malay Agarwal
----
+# Prompting and Prompt Engineering
+
+- [Prompting and Prompt Engineering](#prompting-and-prompt-engineering)
+  - [Prompting](#prompting)
+  - [Prompt Engineering](#prompt-engineering)
+    - [Definition](#definition)
+    - [In-Context Learning (ICL)](#in-context-learning-icl)
+      - [Zero-Shot Inference](#zero-shot-inference)
+      - [Few-Shot Inference](#few-shot-inference)
+  - [Inference Configuration Parameters](#inference-configuration-parameters)
+    - [Max New Tokens](#max-new-tokens)
+    - [Greedy vs Random Sampling](#greedy-vs-random-sampling)
+      - [Sample Top-K and Sample Top-P](#sample-top-k-and-sample-top-p)
+      - [Temperature](#temperature)
+
 ## Prompting
 
 The text that is fed to LLMs as input is called the prompt and the act of providing the input is called prompting.
@@ -22,7 +32,7 @@ In ICL, we add examples of the task we are doing in the prompt. This adds more c
 For example, we might be doing semantic classification using our LLM. In that case, a prompt could be:
 
 > Classify this review: I loved this movie!
-> 
+>
 > Sentiment:
 
 This prompt works well with large LLMs but smaller LLMs might fail to follow the instruction due to their size and fewer number of features. This is also called **zero-shot inference** since our prompt has zero examples regarding what the model is expected to output.
@@ -32,11 +42,11 @@ This prompt works well with large LLMs but smaller LLMs might fail to follow the
 This is where ICL comes into play. By adding examples to the prompt, even a smaller LLM might be able to follow the instruction and figure out the correct output. An example of such a prompt is shown below. This is also called **one-shot inference** since we are providing a single example in the prompt:
 
 > Classify this review: I loved this movie!
-> 
+>
 > Sentiment: Positive
 >
 > Classify this review: I don't like this chair.
-> 
+>
 > Sentiment:
 
 Here, we first provide an example to the model and then ask it to figure out the output for the _I don't like this chair_ review.
@@ -111,4 +121,3 @@ On the other hand, if we pick a warmer temperature ($T > 1$), the probability di
 Notice how none of the words have a clear advantage over the other words. The model generates text with a higher amount of randomness and has more variability in its output.
 
 Clearly, when $T = 1$, the model uses the softmax output as is for random sampling.
-

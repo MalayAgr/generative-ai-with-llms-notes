@@ -1,9 +1,23 @@
----
-title: Instruction Fine-Tuning
-toc: yes
-banner: Generative AI With Large Language Models/assets/fine-tuning.png
-author: Malay Agarwal
----
+# Instruction Fine-Tuning
+
+- [Instruction Fine-Tuning](#instruction-fine-tuning)
+  - [Limitations of ICL](#limitations-of-icl)
+  - [Instruction Fine-Tuning](#instruction-fine-tuning-1)
+    - [Introduction](#introduction)
+    - [Common Steps Involved in Instruction Fine-Tuning](#common-steps-involved-in-instruction-fine-tuning)
+      - [Prepare the Dataset](#prepare-the-dataset)
+      - [Split Dataset](#split-dataset)
+      - [Training](#training)
+  - [Fine-Tuning On a Single Task](#fine-tuning-on-a-single-task)
+    - [Introduction](#introduction-1)
+    - [Catastrophic Forgetting](#catastrophic-forgetting)
+      - [Problem](#problem)
+      - [Avoiding Catastrophic Forgetting](#avoiding-catastrophic-forgetting)
+  - [Fine-Tuning On Multiple Tasks](#fine-tuning-on-multiple-tasks)
+    - [Introduction](#introduction-2)
+    - [Case Study - FLAN](#case-study---flan)
+  - [Useful References](#useful-references)
+
 ## Limitations of ICL
 
 We saw how some models are capable of identifying instructions contained in a prompt and correctly carrying out zero-shot inference. On the other hand, we also saw smaller models which fail to do so. In such cases, we use [In-Context Learning (ICL)](../../Week%201/Introduction%20and%20Generative%20AI%20Project%20Lifecycle/Prompting%20and%20Prompt%20Engineering.md#In-Context%20Learning%20(ICL)) to make the model follow our instructions.
@@ -77,6 +91,8 @@ This process leads to a new version of the model, often called an **Instruct Mod
 
 ## Fine-Tuning On a Single Task
 
+### Introduction
+
 Fine-tuning on a single task can be done by simply using a single-task dataset. That is, all prompt-completion pairs in the dataset have the same basic instruction in them.
 
 > **Example**:
@@ -87,6 +103,8 @@ Fine-tuning on a single task can be done by simply using a single-task dataset. 
 In most cases, only a small dataset (500-1000 examples) is required to achieve good performance on a single-task.
 
 ### Catastrophic Forgetting
+
+#### Problem
 
 Fine-tuning on a single task can lead to a problem called **catastrophic forgetting**. This happens since full fine-tuning changes the weights of the original LLM. This leads to great performance on the task we are fine-tuning for but can degrade performance on other tasks.
 
@@ -101,6 +119,8 @@ But, if we want the model to maintain its multi-task performance, we can perform
 Another alternative is **Parameter Efficient Fine-Tuning (PEFT)**. PEFT preserves the weights of the original LLM and trains only a small number of task-specific adapter layers and parameters (see [Parameter Efficient Fine-Tuning (PEFT)](Parameter%20Efficient%20Fine-Tuning%20(PEFT).md)).
 
 ## Fine-Tuning On Multiple Tasks
+
+### Introduction
 
 In case of multiple tasks, the dataset contains prompt-completion pairs related to multiple tasks.
 

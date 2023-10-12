@@ -1,9 +1,24 @@
----
-title: Model Evaluation - Metrics and Benchmarks
-toc: yes
-banner: Generative AI With Large Language Models/assets/flan-t5-datasets.png
-author: Malay Agarwal
----
+# Model Evaluation - Metrics and Benchmarks
+
+- [Model Evaluation - Metrics and Benchmarks](#model-evaluation---metrics-and-benchmarks)
+  - [Challenges in Evaluating LLMs](#challenges-in-evaluating-llms)
+  - [Terminology - n-gram](#terminology---n-gram)
+  - [Metrics](#metrics)
+    - [ROUGE](#rouge)
+      - [ROUGE-1](#rouge-1)
+      - [ROUGE-2](#rouge-2)
+      - [ROUGE-L](#rouge-l)
+      - [ROUGE Hacking](#rouge-hacking)
+    - [BLEU Score](#bleu-score)
+    - [Caution](#caution)
+  - [Benchmarks](#benchmarks)
+    - [GLUE and SuperGLUE](#glue-and-superglue)
+    - [Benchmarks for Massive Models](#benchmarks-for-massive-models)
+      - [MMLU](#mmlu)
+      - [BIG-Bench](#big-bench)
+      - [HELM](#helm)
+  - [Useful References](#useful-references)
+
 ## Challenges in Evaluating LLMs
 
 In traditional ML, we use the accuracy score to assess how well a model performs on a given task.

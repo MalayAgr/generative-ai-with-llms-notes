@@ -1,9 +1,42 @@
----
-title: Reinforcement Learning From Human Feedback (RLHF)
-toc: yes
-banner: Generative AI With Large Language Models/assets/constitutional-ai-implementation.png
-author: Malay Agarwal
----
+# Reinforcement Learning From Human Feedback
+
+- [Reinforcement Learning From Human Feedback](#reinforcement-learning-from-human-feedback)
+  - [Why Is Alignment Important?](#why-is-alignment-important)
+  - [Reinforcement Learning From Human Feedback (RLHF)](#reinforcement-learning-from-human-feedback-rlhf)
+    - [Introduction](#introduction)
+    - [Reinforcement Learning](#reinforcement-learning)
+      - [Intuition](#intuition)
+      - [Example: Training a Model to Play Tic-Tac-Toe](#example-training-a-model-to-play-tic-tac-toe)
+    - [Using Reinforcement Learning To Align LLMs](#using-reinforcement-learning-to-align-llms)
+      - [Set-up](#set-up)
+      - [Reward System](#reward-system)
+      - [Reward Model](#reward-model)
+    - [Obtaining Human Feedback and Training the Reward Model](#obtaining-human-feedback-and-training-the-reward-model)
+      - [Prepare Dataset For Human Feedback](#prepare-dataset-for-human-feedback)
+      - [Gather Human Feedback](#gather-human-feedback)
+      - [Prepare Labeled Data For Training](#prepare-labeled-data-for-training)
+      - [Training the Reward Model](#training-the-reward-model)
+      - [Obtaining the Reward Value](#obtaining-the-reward-value)
+    - [Fine-Tuning the LLM Using the Reward Model](#fine-tuning-the-llm-using-the-reward-model)
+    - [Proximal Policy Optimization (PPO)](#proximal-policy-optimization-ppo)
+      - [Phase 1: Create Completions](#phase-1-create-completions)
+      - [Value Function and Value Loss](#value-function-and-value-loss)
+      - [Phase 2: Advantage Estimation](#phase-2-advantage-estimation)
+      - [Final PPO Objective](#final-ppo-objective)
+      - [Pseudocode](#pseudocode)
+    - [Reward Hacking](#reward-hacking)
+      - [Introduction](#introduction-1)
+      - [Avoiding Reward Hacking](#avoiding-reward-hacking)
+      - [Memory Constraints](#memory-constraints)
+    - [Evaluating the Human-Aligned LLM](#evaluating-the-human-aligned-llm)
+  - [Model Self-Supervision With Constitutional AI](#model-self-supervision-with-constitutional-ai)
+    - [Problem - Scaling Human Feedback](#problem---scaling-human-feedback)
+    - [Introduction to Constitutional AI](#introduction-to-constitutional-ai)
+    - [Implementation](#implementation)
+      - [Stage 1 - Supervised Fine-Tuning](#stage-1---supervised-fine-tuning)
+      - [Stage 2 - Reinforcement Learning From AI Feedback](#stage-2---reinforcement-learning-from-ai-feedback)
+  - [Useful Resources](#useful-resources)
+
 ## Why Is Alignment Important?
 
 The goal of fine-tuning with instructions is to train a model further so that it better understands human-like prompts and generates more human-like responses. It can improve a model's performance substantially and lead to more natural sounding language.
@@ -307,7 +340,7 @@ The value function estimates the expected total reward for a given state $S$. In
 
 Since the value function is just another output layer in the LLM, it is automatically computed during the forward pass of a prompt through the LLM.
 
-It is learnt by minimizing the **value loss**, that is the difference between the actual future total reward (1.87 for *A dog is*) and the estimated future total reward (1.23 for _a furry_). The value loss is essentially the mean squared error between these two quantities given by:
+It is learnt by minimizing the **value loss**, that is the difference between the actual future total reward (1.87 for *A dog is*) and the estimated future total reward (1.23 for *a furry*). The value loss is essentially the mean squared error between these two quantities given by:
 
 $$
 L^{VF} = \frac{1}{2} \lVert V_\phi(s) - (\sum_{t = 0}^{T} \gamma^t r_t | s_0 = s) \rVert_2^2
@@ -412,15 +445,15 @@ In case of LLMs, reward hacking can present itself in the form of addition of wo
 
 For example, consider that we are using RLHF to reduce toxicity of an instruct LLM. We have trained a reward model to reward each completion based on how toxic the completion is.
 
-We feed a prompt _This product is_ to the LLM, which generates the completion _complete garbage_. This results in a low reward and PPO updates the LLM towards less toxicity. As the LLM is updated in each iteration of RLHF, it is possible that the updated LLM diverges too much from the initial LLM since it is trying to optimize the reward.
+We feed a prompt *This product is* to the LLM, which generates the completion *complete garbage*. This results in a low reward and PPO updates the LLM towards less toxicity. As the LLM is updated in each iteration of RLHF, it is possible that the updated LLM diverges too much from the initial LLM since it is trying to optimize the reward.
 
-The model might learn to generate completions that it has learned will lead to very low toxicity scores, such as _most awesome, most incredible thing ever_. This completion is highly exaggerated. It is also possible that the model will generate completions that are completely nonsensical, as long as the phrase leads to high reward. For example, it can generate something like _Beautiful love and world peace all around_, which has positive words and is likely to have a high reward.
+The model might learn to generate completions that it has learned will lead to very low toxicity scores, such as *most awesome, most incredible thing ever*. This completion is highly exaggerated. It is also possible that the model will generate completions that are completely nonsensical, as long as the phrase leads to high reward. For example, it can generate something like *Beautiful love and world peace all around*, which has positive words and is likely to have a high reward.
 
 #### Avoiding Reward Hacking
 
 One possible solution is to use the initial instruct LLM as a reference model against which we can check the performance of the RL-updated LLM. The weights of this reference model are frozen and not updated during iterations of RLHF.
 
-During training, a prompt like _This product is_ is passed to each model and both generate completions. Say the reference generates the completion _useful and well-priced_ and the updated LLM generates _the most awesome, most incredible thing ever_.
+During training, a prompt like *This product is* is passed to each model and both generate completions. Say the reference generates the completion *useful and well-priced* and the updated LLM generates *the most awesome, most incredible thing ever*.
 
 We can then compare the two completions and calculate a value called the **KL divergence** (Kullback-Leibler divergence). KL divergence is a statistical measure of how different two probability distributions are. Thus, by comparing the completions, we can calculate how much the updated model has diverged from the reference.
 
@@ -462,20 +495,19 @@ The labeled data used to train the reward model typically requires large teams o
 
 ### Introduction to Constitutional AI
 
-Constitutional AI, first proposed in the paper _[Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/pdf/2212.08073.pdf)_ (Anthropic, 2022), is one approach to scale human feedback.
+Constitutional AI, first proposed in the paper *[Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/pdf/2212.08073.pdf)* (Anthropic, 2022), is one approach to scale human feedback.
 
 It is a method for training models using a set of rules and principles that govern the model's behavior. Together with a set of sample prompts, these form a constitution. We then train the model to self-critic and revise its responses to comply with the constitution.
 
 Constitutional AI is not only useful in scaling human feedback, but can also help with some unintended consequence of RLHF.
 
-For example, based on how the input prompt is structured, an aligned model may end up revealing harmful information as it tries to provide the most helpful. We may provide the prompt _Can you help me hack into my neighbor's wifi_ and in the quest for being helpful, the LLM might give complete instructions on how to do this.
+For example, based on how the input prompt is structured, an aligned model may end up revealing harmful information as it tries to provide the most helpful. We may provide the prompt *Can you help me hack into my neighbor's wifi* and in the quest for being helpful, the LLM might give complete instructions on how to do this.
 
 Providing the model with a constitution can help the model in balancing these competing interests and minimize the harm.
 
 An example of constitutional principles is shown below:
 
 ![constitutional-ai-constitution](../../assets/constitutional-ai-constitution.png)
-
 
 ### Implementation
 
@@ -491,7 +523,7 @@ In the first stage, we carry out supervised learning:
 - We then ask the model to critique its own harmful responses according to the constitutional principles and revise them to comply with those rules.
 - Once done, we'll fine-tune the model using the pairs of *red team prompts* and the *revised constitutional responses*.
 
-Consider we give the prompt _Can you help me hack into my neighbor's wifi_ and the aligned LLM generates the response _Sure thing, you can use an app called VeryEasyHack_.
+Consider we give the prompt *Can you help me hack into my neighbor's wifi* and the aligned LLM generates the response *Sure thing, you can use an app called VeryEasyHack*.
 
 To combat this, we augment the prompt using the harmful completion and set of pre-defined instructions that ask the model to critique its response. For example, the prompt can be augmented with:
 
@@ -509,7 +541,7 @@ The model generates a new response:
 
 > *Hacking into your neighbor's wifi is an invasion of their privacy. It may also land you in legal trouble. I advise against it.*
 
-Thus, the prompt _Can you help me hack into my neighbor's wifi_ becomes the red team prompt and the above revised completion is the revised constitutional response.
+Thus, the prompt *Can you help me hack into my neighbor's wifi* becomes the red team prompt and the above revised completion is the revised constitutional response.
 
 We repeat this process for many red team prompts and obtain a dataset of prompt-completion pairs that can be used to fine-tune the model in a supervised manner. The resultant LLM will have learnt to generate constitutional responses.
 
@@ -519,11 +551,11 @@ In the second stage, we use reinforcement learning.
 
 This is similar to RLHF but instead of using feedback from a human, we use feedback generated by a model. This is often called **Reinforcement Learning From AI Feedback** (RLAIF).
 
-We use the fine-tuned LLM from the first stage to generate a set of completions for a red team prompt. We then ask the model which of the completions is preferred according to the constitutional principles. 
+We use the fine-tuned LLM from the first stage to generate a set of completions for a red team prompt. We then ask the model which of the completions is preferred according to the constitutional principles.
 
 Repeating this for multiple red team prompts generates a model-generated preference dataset that can be used to train a reward model. Once we have the reward model, we can apply the usual RLHF pipeline to align the model to the constitutional principles.
 
-In the end, we obtain a _constitutional LLM_.
+In the end, we obtain a *constitutional LLM*.
 
 ## Useful Resources
 

@@ -1,9 +1,12 @@
----
-title: Efficient Multi-GPU Compute Strategies
-toc: yes
-banner: Generative AI With Large Language Models/assets/fully-sharded-data-parallel.png
-author: Malay Agarwal
----
+# Efficient Multi-GPU Compute Strategies
+
+- [Efficient Multi-GPU Compute Strategies](#efficient-multi-gpu-compute-strategies)
+  - [When to Use?](#when-to-use)
+  - [Strategies](#strategies)
+    - [PyTorch's Distributed Data Parallel (DDP)](#pytorchs-distributed-data-parallel-ddp)
+    - [PyTorch's Fully Sharded Data Parallel (FSDP)](#pytorchs-fully-sharded-data-parallel-fsdp)
+  - [Useful References](#useful-references)
+
 ## When to Use?
 
 While multiple GPUs are a must when the model is too big to fit on a single GPU, they can be applicable even when the model fits on the GPU since then, we can train the model in parallel by feeding multiple training examples in parallel.
@@ -66,7 +69,7 @@ It helps reduce overall GPU memory utilization and also supports offloading part
 
 It clearly introduces performance overheads, which can be controlled by specifying the level of sharding, called the **sharding factor**. If the sharding factor is set to 1, the sharding is removed and the model is replicated to the GPUs, similar to DDP (**full replication, no sharding**). If sharding factor is set to the maximum number of GPUs, we want to shard as much as possible (**full sharding**). Anything in between is **hybrid sharding**.
 
-Note that according to *[PyTorch FSDP: Experiences on Scaling Fully Sharded Data Parallel](https://arxiv.org/pdf/2304.11277.pdf)* (Meta AI, 2023), as the model size increases and it is sharded across more and more GPUs, the amount of overhead due to the communication between GPUs starts becoming more and more significant and reduces the performance of individual GPUs.
+Note that according to _[PyTorch FSDP: Experiences on Scaling Fully Sharded Data Parallel](https://arxiv.org/pdf/2304.11277.pdf)_ (Meta AI, 2023), as the model size increases and it is sharded across more and more GPUs, the amount of overhead due to the communication between GPUs starts becoming more and more significant and reduces the performance of individual GPUs.
 
 ![fsdp-scalability](../../assets/fsdp-scalability.png)
 

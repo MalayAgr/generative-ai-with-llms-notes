@@ -1,9 +1,24 @@
----
-title: Parameter Efficient Fine-Tuning (PEFT)
-toc: yes
-banner: Generative AI With Large Language Models/assets/lora-multiple-tasks.png
-author: Malay Agarwal
----
+# Parameter Efficient Fine-Tuning (PEFT)
+
+- [Parameter Efficient Fine-Tuning (PEFT)](#parameter-efficient-fine-tuning-peft)
+    - [Introduction](#introduction)
+    - [PEFT Methods in General](#peft-methods-in-general)
+        - [Selective](#selective)
+        - [Reparameterization](#reparameterization)
+        - [Additive](#additive)
+    - [Low Rank Adaptation (LoRA)](#low-rank-adaptation-lora)
+        - [Introduction](#introduction-1)
+        - [Practical Example](#practical-example)
+        - [Multiple Tasks](#multiple-tasks)
+        - [Base Model vs Full Fine-Tuning vs LoRA](#base-model-vs-full-fine-tuning-vs-lora)
+        - [Choosing The Rank $r$](#choosing-the-rank-r)
+    - [Soft Prompts](#soft-prompts)
+        - [Introduction](#introduction-2)
+        - [Prompt Tuning vs Full Fine-tuning](#prompt-tuning-vs-full-fine-tuning)
+        - [Multiple Tasks](#multiple-tasks-1)
+        - [Interpretability of Soft Prompts](#interpretability-of-soft-prompts)
+    - [Useful Resources](#useful-resources)
+
 ## Introduction
 
 Full-fine tuning of large language LLMs is challenging. Fine-tuning requires storing training weights, optimizer states, gradients, forward activations and temporary memory. Things to store other than the weights can take up to **12-20 times** more memory than the weights themselves.

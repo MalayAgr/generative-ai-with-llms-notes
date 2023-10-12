@@ -1,9 +1,36 @@
----
-title: Transformers
-toc: yes
-author: Malay Agarwal
----
+# Transformers
 
+- [Transformers](#transformers)
+    - [Before Transformers](#before-transformers)
+    - [Why Transformers?](#why-transformers)
+    - [Some Features of Transformers](#some-features-of-transformers)
+    - [Key Concepts](#key-concepts)
+        - [Self-Attention](#self-attention)
+            - [Intuition](#intuition)
+            - [Computation](#computation)
+        - [Multi-Headed Attention](#multi-headed-attention)
+            - [Intuition](#intuition-1)
+            - [Computation](#computation-1)
+            - [Code (PyTorch)](#code-pytorch)
+        - [Positional Encoding](#positional-encoding)
+            - [Why?](#why)
+            - [Computation](#computation-2)
+    - [Full Encoder-Decoder Architecture](#full-encoder-decoder-architecture)
+        - [Encoder](#encoder)
+            - [Residual Connections](#residual-connections)
+            - [Layer Normalization](#layer-normalization)
+            - [Feed-Forward Neural Network (FFNN)](#feed-forward-neural-network-ffnn)
+        - [Decoder](#decoder)
+            - [Masked Multi-Headed Attention](#masked-multi-headed-attention)
+            - [Cross-Attention](#cross-attention)
+            - [Linear + Softmax - Prediction](#linear--softmax---prediction)
+                - [Greedy Sampling](#greedy-sampling)
+                - [Random Sampling](#random-sampling)
+    - [Types of Configurations of Transformers](#types-of-configurations-of-transformers)
+        - [Encoder-only Models](#encoder-only-models)
+        - [Encoder-Decoder Models](#encoder-decoder-models)
+        - [Decoder-only Models](#decoder-only-models)
+    - [Useful Resources](#useful-resources)
 
 ## Before Transformers
 
@@ -260,7 +287,11 @@ Take the sentence:
 > Jane visite l'Afrique en Septembre
 
 Consider the word _Jane_. Here, $t = 1$. Assuming 4-dimensional embedding ($0 \leq i \leq 3$), the positional encoding of _Jane_ would be:
-$$[\sin(1), \cos(1), \sin(\frac{1}{\sqrt{1000})}), \cos(\frac{1}{\sqrt{10000}})]$$since $\text{PE}(1, 0) = \sin(1)$, $\text{PE}(1, 1) = \cos(1)$, $\text{PE}(1, 2) = \sin(\frac{1}{\sqrt{1000})})$ and $\text{PE}(1, 3) = \cos(\frac{1}{\sqrt{10000}})$ respectively.
+
+$$[\sin(1), \cos(1), \sin(\frac{1}{\sqrt{1000})}), \cos(\frac{1}{\sqrt{10000}})]
+$$
+
+since $\text{PE}(1, 0) = \sin(1)$, $\text{PE}(1, 1) = \cos(1)$, $\text{PE}(1, 2) = \sin(\frac{1}{\sqrt{1000})})$ and $\text{PE}(1, 3) = \cos(\frac{1}{\sqrt{10000}})$ respectively.
 
 This creates a vector with alternating sine and cosine waves, which have different frequencies. This vector is added to the original embedding for the word so that the original embedding also has information about the word's position.
 
