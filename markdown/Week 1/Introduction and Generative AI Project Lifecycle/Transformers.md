@@ -110,10 +110,10 @@ The computation graph for the word _l'Afrique_ is as shown:
 
 The steps are as follows:
 
-- The dot product of $q^{<3>}$ with each word's $k^{\langle t \rangle}$ is computed.
+- The dot product of $q^{\langle 3 \rangle}$ with each word's $k^{\langle t \rangle}$ is computed.
 - A softmax is taken over this dot product.
 - Each word's $v^{\langle t \rangle}$ is multiplied with the softmax output.
-- The result is summed _element-wise_ and gives the final $A^{<3>}$ value.
+- The result is summed _element-wise_ and gives the final $A^{\langle 3 \rangle}$ value.
 
 > **Note**: This shows that a word does not have a fixed representation and can actually adapt to how it is used in the sentence.
 
