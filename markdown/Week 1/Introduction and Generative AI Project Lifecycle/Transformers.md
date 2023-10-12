@@ -81,24 +81,24 @@ This is called **self-attention**. The term originates from the fact that each w
 This self-attention is computed as follows for each word $t$ in the prompt:
 
 $$
-A(q^{<t>}, K, V) = \sum_{i}\frac{\exp(q^{<t>}.K^{<i>})}{\sum_{j}\exp(q^{<t>}.K^{<j>})}V^{<i>}
+A(q^{\langle t \rangle}, K, V) = \sum_{i}\frac{\exp(q^{\langle t \rangle}.K^{\langle i \rangle})}{\sum_{j}\exp(q^{\langle t \rangle}.K^{\langle j \rangle})}V^{\langle i \rangle}
 $$
 
-This is essentially a **softmax** over the quantity $q^{<t>}.K^{<i>}$.
+This is essentially a **softmax** over the quantity $q^{\langle t \rangle}.K^{\langle i \rangle}$.
 
 For each word $t$, we have three values:
 
-- $q^{<t>}$ - Query
-- $k^{<t>}$ - Key
-- $v^{<t>}$ - Value
+- $q^{\langle t \rangle}$ - Query
+- $k^{\langle t \rangle}$ - Key
+- $v^{\langle t \rangle}$ - Value
 
 Corresponding to the queries, keys and values, we have three weight matrices that are learnt during training:
 
-- $q^{<t>} = W_Q.x^{<t>}$
-- $k^{<t>} = W_K.x^{<t>}$
-- $v^{<t>} = W_V.x^{<t>}$
+- $q^{\langle t \rangle} = W_Q.x^{\langle t \rangle}$
+- $k^{\langle t \rangle} = W_K.x^{\langle t \rangle}$
+- $v^{\langle t \rangle} = W_V.x^{\langle t \rangle}$
 
-The terms query, key and value derived from DBMS. Intuitively, $q^{<t>}$ allows us to ask a question for the word $t$ and the product $q^{<t>}.k^{<j>}$ tells us how good of an answer is word $j$ for the question.
+The terms query, key and value derived from DBMS. Intuitively, $q^{\langle t \rangle}$ allows us to ask a question for the word $t$ and the product $q^{\langle t \rangle}.k^{\langle j \rangle}$ tells us how good of an answer is word $j$ for the question.
 
 Consider the sentence (in the context of machine translation):
 
@@ -110,9 +110,9 @@ The computation graph for the word _l'Afrique_ is as shown:
 
 The steps are as follows:
 
-- The dot product of $q^{<3>}$ with each word's $k^{<t>}$ is computed.
+- The dot product of $q^{<3>}$ with each word's $k^{\langle t \rangle}$ is computed.
 - A softmax is taken over this dot product.
-- Each word's $v^{<t>}$ is multiplied with the softmax output.
+- Each word's $v^{\langle t \rangle}$ is multiplied with the softmax output.
 - The result is summed _element-wise_ and gives the final $A^{<3>}$ value.
 
 > **Note**: This shows that a word does not have a fixed representation and can actually adapt to how it is used in the sentence.
