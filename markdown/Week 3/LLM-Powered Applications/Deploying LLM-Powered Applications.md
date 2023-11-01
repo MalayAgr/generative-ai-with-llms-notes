@@ -1,8 +1,56 @@
----
-title: Deploying LLM-Powered Applications
-toc: yes
-author: Malay Agarwal
----
+# Deploying LLM-Powered Applications
+
+- [Deploying LLM-Powered Applications](#deploying-llm-powered-applications)
+  - [Questions to Ask When Deploying LLMs](#questions-to-ask-when-deploying-llms)
+    - [How Will the Model Function in Deployment?](#how-will-the-model-function-in-deployment)
+    - [Does the Model Need Additional Resources?](#does-the-model-need-additional-resources)
+    - [How Will the Model Be Consumed?](#how-will-the-model-be-consumed)
+    - [Typical LLM Application Architecture](#typical-llm-application-architecture)
+  - [Model Optimization by Reducing Model Size for Deployment](#model-optimization-by-reducing-model-size-for-deployment)
+    - [Introduction](#introduction)
+    - [Techniques](#techniques)
+      - [Distillation](#distillation)
+      - [Post-Training Quantization](#post-training-quantization)
+      - [Model Pruning](#model-pruning)
+  - [Inference Challenges in LLMs After Training](#inference-challenges-in-llms-after-training)
+    - [Knowledge Cut-Off](#knowledge-cut-off)
+    - [Complex Math](#complex-math)
+    - [Hallucination](#hallucination)
+    - [Solving Inference Challenges](#solving-inference-challenges)
+      - [Introduction](#introduction-1)
+      - [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
+        - [Introduction](#introduction-2)
+        - [Implementation](#implementation)
+        - [Example - Searching Legal Documents](#example---searching-legal-documents)
+        - [Possible Integrations](#possible-integrations)
+        - [Considerations in Implementation](#considerations-in-implementation)
+        - [Vector Stores](#vector-stores)
+  - [Interacting With External Applications](#interacting-with-external-applications)
+    - [Introduction](#introduction-3)
+    - [Motivating Example](#motivating-example)
+    - [Considerations for Prompts and Completions](#considerations-for-prompts-and-completions)
+    - [Challenges in Reasoning (Example With Math Problem)](#challenges-in-reasoning-example-with-math-problem)
+    - [Chain-of-Thought (CoT) Prompting](#chain-of-thought-cot-prompting)
+    - [Program-Aided Language (PAL) Models](#program-aided-language-pal-models)
+      - [Introduction](#introduction-4)
+      - [Prompt Structure](#prompt-structure)
+      - [Overall Framework](#overall-framework)
+      - [Automation](#automation)
+    - [ReAct - Combining Reasoning and Action](#react---combining-reasoning-and-action)
+      - [Prompt Structure](#prompt-structure-1)
+        - [Question](#question)
+        - [Thought](#thought)
+        - [Action](#action)
+        - [Observation](#observation)
+      - [Obtaining the Final Answer](#obtaining-the-final-answer)
+      - [Initial Instructions](#initial-instructions)
+      - [Putting It All Together](#putting-it-all-together)
+    - [Model Size and Reasoning Ability](#model-size-and-reasoning-ability)
+  - [Useful Resources](#useful-resources)
+    - [Reducing Model Size](#reducing-model-size)
+    - [Inference Challenges](#inference-challenges)
+    - [Interacting With External Applications](#interacting-with-external-applications-1)
+
 ## Questions to Ask When Deploying LLMs
 
 There are a number of important questions to ask when deploying LLMs.
