@@ -96,7 +96,8 @@ However, the challenge is to reduce the size of the LLM while still maintaining 
 
 The techniques available have a trade-off between accuracy and performance.
 
-> **Note**: Not all techniques available for reducing model size in general work well with generative models.
+> [!NOTE]
+> Not all techniques available for reducing model size in general work well with generative models.
 
 #### Distillation
 
